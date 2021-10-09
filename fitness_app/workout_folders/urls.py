@@ -28,12 +28,12 @@ urlpatterns = [
 
 # Workout 
     # Get all workouts
-    path('workout/', views.WorkoutList.as_view()),
+    path('workout/', views.WorkoutList.as_view(), name='get'),
   
 
 # workout Folder
     # get all folders
     path('folders/', views.WorkoutFolderList.as_view()),
-    
+
 
 ]

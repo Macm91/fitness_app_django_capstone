@@ -5,7 +5,6 @@ from django.db.models.expressions import F
 from django.db.models.fields.files import ImageField
 
 
-
 class WorkoutFolder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     folder_description = models.CharField(max_length=200, null=False, blank=True)
@@ -23,9 +22,10 @@ class Workout(models.Model):
     notes = models.CharField(max_length=100, null=False, blank=True)
 
 class WorkoutExercises(models.Model):
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=False, default=1)
+    workout =models.ForeignKey(Workout, on_delete=models.CASCADE, null=False, default=1)
     sets = models.IntegerField()
     reps = models.IntegerField()
-    notes = models.CharField(max_length=100, null=False, blank=True)
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null= False)
-    workout =models.ForeignKey(Workout, on_delete=models.CASCADE, default=1, null=False, blank=False)
-
+    notes = models.CharField(max_length=100, null=False, blank=True) 
+    
+   
