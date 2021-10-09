@@ -130,3 +130,23 @@ class WorkoutList(APIView):
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status= status.HTTP_400_BAD_REQUEST)
+
+
+
+
+class WorkoutFolderList(APIView):
+
+    permission_classes =[AllowAny]
+
+    def get(self, request):
+        w_f = WorkoutFolder.objects.all()
+        serializer = WorkoutFolderSerializer(w_f, many=True)
+        return Response(serializer.data)
+
+    def post (self, request):
+        serializers=WorkoutFolderSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status= status.HTTP_400_BAD_REQUEST)
+

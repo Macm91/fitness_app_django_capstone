@@ -31,6 +31,9 @@ urlpatterns = [
     path('workout/', views.WorkoutList.as_view()),
   
 
-
+# workout Folder
+    # get all folders
+    path('folders/', views.WorkoutFolderList.as_view()),
+    
 
 ]
