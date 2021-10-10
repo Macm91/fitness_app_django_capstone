@@ -62,27 +62,50 @@ def user_folders(request):
 
 
 
+# workout methods
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def user_workouts(request):
+    if request.method == 'POST':
+        serializer = WorkoutSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        workout = Exercise.objects.all()
+        serializers = ExerciseSerializer(workout, many=True)
+        return Response(serializers.data)
+
+# create an elif delete and elit edit to this as well 
 
 
+#workoutexercises methods
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def workout_exercises(request):
+    if request.method == 'POST':
+        serializer = WorkoutExercisesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        w_e = WorkoutExercises.objects.all()
+        serializer = WorkoutExercisesSerializer(w_e, many=True)
+        return Response(serializer.data)
 
 
-# class ExerciseList(APIView):
-
-#     permission_classes = [AllowAny]
-    
-#     def get(self, request):
-#         exercise = Exercise.objects.all()
-#         serializer = ExerciseSerializer(exercise, many=True)
-#         return Response(serializer.data)
-
-
-#     def post (self, request):
-#         serializers=ExerciseSerializer(data=request.data)
-#         if serializers.is_valid():
-#             serializers.save()
-#             return Response(serializers.data, status=status.HTTP_201_CREATED)
-#         return Response(serializers.errors, status= status.HTTP_400_BAD_REQUEST)
-
+# @api_view(['POST'])
+# @permission_classes([AllowAny])
+# def add_exercise(request):
+#     serializers=ExerciseSerializer(data=request.data)
+#     if serializers.is_valid():
+#         serializers.save()
+#         return Response(serializers.data, status=status.HTTP_201_CREATED)
+#     return Response(serializers.errors, status= status.HTTP_400_BAD_REQUEST)
 
 
 # class WorkoutExercisesList(APIView):
@@ -181,20 +204,4 @@ def user_folders(request):
 
 
 
-
-# class WorkoutFolderList(APIView):
-
-#     permission_classes =[AllowAny]
-
-#     def get(self, request):
-#         w_f = WorkoutFolder.objects.all()
-#         serializer = WorkoutFolderSerializer(w_f, many=True)
-#         return Response(serializer.data)
-
-#     def post (self, request):
-#         serializers=WorkoutFolderSerializer(data=request.data)
-#         if serializers.is_valid():
-#             serializers.save()
-#             return Response(serializers.data, status=status.HTTP_201_CREATED)
-#         return Response(serializers.errors, status= status.HTTP_400_BAD_REQUEST)
 

@@ -15,7 +15,9 @@ urlpatterns = [
     path('exercises/', views.get_all_exrecises),
     path('addexercise/', views.add_exercise),
     path('folders/', views.user_folders),
-    
+    path('workout/', views.user_workouts),
+    path('workoutexercises/', views.workout_exercises),
+
 
 
 # WorkoutExercises

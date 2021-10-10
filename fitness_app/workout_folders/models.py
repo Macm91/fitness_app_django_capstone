@@ -18,6 +18,7 @@ class Exercise (models.Model):
    
 
 class Workout(models.Model):
+    name = models.CharField(max_length=30, null=False, blank=True)
     workout_folder = models.ForeignKey(WorkoutFolder, on_delete=models.CASCADE, null=False)
     notes = models.CharField(max_length=100, null=False, blank=True)
 
