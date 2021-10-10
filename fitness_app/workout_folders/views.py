@@ -73,6 +73,8 @@ def user_workouts(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+
+# below works
     elif request.method == 'GET':
         workout = Exercise.objects.all()
         serializers = ExerciseSerializer(workout, many=True)

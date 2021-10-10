@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication.apps.AuthenticationConfig',
     'workout_folders.apps.WorkoutFoldersConfig',
-    
+    'nutrition.apps.NutritionConfig',
 ]
 
 MIDDLEWARE = [
