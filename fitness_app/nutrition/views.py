@@ -1,4 +1,5 @@
-from django.shortcuts import renderfrom django.http.response import HttpResponse
+from django.shortcuts import render
+from django.http.response import HttpResponse
 from django.urls.base import reverse
 from rest_framework import serializers, status
 from rest_framework.views import APIView
@@ -31,4 +32,22 @@ def user_folders(request):
         serializer = MacroFolderSerializer(folder, many=True)
         return Response(serializer.data)
 
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def macros(request):
+
+    print(
+        'User', f"{request.user.id}{request.user.email}{request.user.username}"
+    )
+
+    if request.method == 'POST':
+        serializer = MacrosSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        folder = Macros.objects.all()
+        serializer = MacrosSerializer(folder, many=True)
+        return Response(serializer.data)
 

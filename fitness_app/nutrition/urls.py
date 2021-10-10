@@ -8,5 +8,6 @@ from . import views
 urlpatterns = [
 
     path('folder/', views.user_folders),
+    path('folder/macros', views.macros),
 
 ]
