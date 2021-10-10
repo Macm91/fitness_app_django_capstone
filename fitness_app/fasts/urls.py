@@ -7,7 +7,7 @@ from . import views
 
 urlpatterns = [
 
-    # path('folder/', views.user_folders),
+    path('', views.fasts),
    
 
 ]

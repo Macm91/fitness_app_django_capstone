@@ -7,5 +7,5 @@ from .models import Fasts
 class FastsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fasts
-        fields = ['id', 'user', 'start', 'end', 'totalduration', ' completed']
+        fields = ['id', 'user', 'start', 'end', 'total_duration', 'completed']
 
