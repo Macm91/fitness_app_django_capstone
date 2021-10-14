@@ -23,7 +23,7 @@ class WorkoutExercisesSerializer(serializers.ModelSerializer):
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Workout
-        fields = ['id', 'workout_folder', 'notes']
+        fields = ['id', 'workout_folder', 'notes', 'name']
 
 
 class WorkoutFolderSerializer(serializers.ModelSerializer):

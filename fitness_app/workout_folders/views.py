@@ -59,56 +59,110 @@ def edit_exercise(request, pk):
 
 
 
-
-
-
-
-
-
-
 #folder methods
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def user_folders(request):
-
     print(
         'User', f"{request.user.id}{request.user.email}{request.user.username}"
     )
+    # if request.method == 'POST':
+    #     serializer = WorkoutFolderSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save(user=request.user)
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+    # elif request.method == 'GET':
+    folder = WorkoutFolder.objects.filter(user_id=request.user.id)
+    serializer = WorkoutFolderSerializer(folder, many=True)
+    return Response(serializer.data)
 
-    if request.method == 'POST':
-        serializer = WorkoutFolderSerializer(data=request.data)
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def add_folders(request):
+    serializer = WorkoutFolderSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'GET', 'DELETE'])
+@permission_classes([AllowAny])
+def edit_folder(request, pk):
+
+    if request.method == 'PUT':
+        wf = WorkoutFolder.objects.get(id = pk )
+        serializer = WorkoutFolderSerializer(wf, data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        folder = WorkoutFolder.objects.filter(user_id=request.user.id)
-        serializer = WorkoutFolderSerializer(folder, many=True)
+        wf = WorkoutFolder.objects.get(id = pk )
+        serializer = WorkoutFolderSerializer(wf, many=False)
         return Response(serializer.data)
-
+    elif request.method == 'DELETE':
+        wf = WorkoutFolder.objects.get(id = pk )
+        wf.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # workout methods
 
-@api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
-def user_workouts(request):
-    if request.method == 'POST':
-        serializer = WorkoutSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+# @api_view(['GET', 'POST'])
+# @permission_classes([IsAuthenticated])
+# def user_workouts(request):
+#     if request.method == 'POST':
+#         serializer = WorkoutSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+#     elif request.method == 'GET':
+#         workout = Exercise.objects.all()
+#         serializers = ExerciseSerializer(workout, many=True)
+#         return Response(serializers.data)
 
-# below works
-    elif request.method == 'GET':
-        workout = Exercise.objects.all()
-        serializers = ExerciseSerializer(workout, many=True)
+
+#    path('workout/folder/<int:fk>/', views.user_workouts),
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def user_workouts(request, fk):
+        workout = Workout.objects.filter(workout_folder_id = fk )
+        serializers = WorkoutSerializer(workout, many=True)
         return Response(serializers.data)
 
-# create an elif delete and elit edit to this as well 
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def add_workouts(request):
+    serializer = WorkoutSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PUT', 'GET', 'DELETE'])
+@permission_classes([AllowAny])
+def edit_workout(request, pk):
+
+    if request.method == 'PUT':
+        wf = Workout.objects.get(id = pk )
+        serializer = WorkoutSerializer(wf, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        wf = Workout.objects.get(id = pk )
+        serializer = WorkoutSerializer(wf, many=False)
+        return Response(serializer.data)
+    elif request.method == 'DELETE':
+        wf = Workout.objects.get(id = pk )
+        wf.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 #workoutexercises methods

@@ -2,7 +2,7 @@ from django.urls import path
 from django.urls.resolvers import URLPattern
 from rest_framework import views
 from . import views
-from .views import add_exercise, edit_exercise, get_all_exrecises, user_folders, user_workouts, workout_exercises
+from .views import add_exercise, add_workouts, edit_exercise, edit_folder, get_all_exrecises, user_folders, user_workouts, workout_exercises
 
 
 urlpatterns = [
@@ -11,7 +11,12 @@ urlpatterns = [
     path('exercises/<int:pk>/', views.edit_exercise),
     path('addexercise/', views.add_exercise),
     path('folders/', views.user_folders),
-    path('workout/', views.user_workouts),
+    path('add/folder', views.add_folders),
+    path('folders/<int:pk>/', views.edit_folder),
+    # path('workout/', views.user_workouts),
+    path('workout/folder/<int:fk>/', views.user_workouts),
+    path('workout/edit/<int:pk>/', views.edit_workout),
+    path('workout/add_workout/', views.add_workouts),
     path('workoutexercises/', views.workout_exercises),
 
 ]
