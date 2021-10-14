@@ -13,10 +13,11 @@ urlpatterns = [
     path('folders/', views.user_folders),
     path('add/folder', views.add_folders),
     path('folders/<int:pk>/', views.edit_folder),
-    # path('workout/', views.user_workouts),
     path('workout/folder/<int:fk>/', views.user_workouts),
     path('workout/edit/<int:pk>/', views.edit_workout),
     path('workout/add_workout/', views.add_workouts),
-    path('workoutexercises/', views.workout_exercises),
+    path('workoutexercises/<int:fk>/', views.workout_exercises),
+    path('workout/add/exercise/', views.add_workout_exercises),
+    path('workout/edit/exercise/<int:pk>/', views.edit_workout_exercise),
 
 ]

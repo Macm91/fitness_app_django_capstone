@@ -13,12 +13,12 @@ class ExerciseSerializer(serializers.ModelSerializer):
         model = Exercise
         fields = ['id', 'name', 'body_part', 'equipment']
 
-
+# 
 class WorkoutExercisesSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkoutExercises
-        fields = ['id', 'exercise_id','sets', 'reps', 'notes']
-
+        fields = ['id', 'exercise_id', 'workout_id', 'sets', 'reps', 'notes']
+# 
 
 class WorkoutSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,7 +29,7 @@ class WorkoutSerializer(serializers.ModelSerializer):
 class WorkoutFolderSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkoutFolder
-        fields = ['user_id', 'folder_description', 'folder_name']
+        fields = ['id', 'user_id', 'folder_description', 'folder_name']
 
 
         
