@@ -28,6 +28,7 @@ def add_measurement(request):
     return Response(serializers.errors, status= status.HTTP_400_BAD_REQUEST)
 
 
+
 # @api_view(['PUT', 'GET'])
 # @permission_classes([AllowAny])
 # def edit_exercise(request, pk):

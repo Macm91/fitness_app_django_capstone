@@ -8,7 +8,7 @@ from .models import Measurements
 class MeasurementsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Measurements
-        fields = ['id', 'user', 'measurement', 'date']
+        fields = ['id', 'user', 'body_part', 'measurement', 'date']
 
 
 
