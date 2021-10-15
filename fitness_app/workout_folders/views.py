@@ -79,14 +79,21 @@ def user_folders(request):
     serializer = WorkoutFolderSerializer(folder, many=True)
     return Response(serializer.data)
 
+
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def add_folders(request):
     serializer = WorkoutFolderSerializer(data=request.data)
+    print(serializer)
     if serializer.is_valid():
-        serializer.save(user=request.user)
+        serializer.save(user=request.data.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+
+
+
+
 
 @api_view(['PUT', 'GET', 'DELETE'])
 @permission_classes([AllowAny])
@@ -189,6 +196,7 @@ def workout_exercises(request, fk):
         w_e = WorkoutExercises.objects.filter(workout_id = fk)
         serializer = WorkoutExercisesSerializer(w_e, many=True)
         return Response(serializer.data)
+
 
 
 

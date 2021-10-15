@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'workout_folders.apps.WorkoutFoldersConfig',
     'nutrition.apps.NutritionConfig',
     'fasts.apps.FastsConfig',
-    'corsheaders'
+    'measurements.apps.MeasurementsConfig',
+    'corsheaders',
+    
 ]
 
 MIDDLEWARE = [

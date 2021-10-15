@@ -11,7 +11,7 @@ urlpatterns = [
     path('exercises/<int:pk>/', views.edit_exercise),
     path('addexercise/', views.add_exercise),
     path('folders/', views.user_folders),
-    path('add/folder', views.add_folders),
+    path('add/folder/', views.add_folders),
     path('folders/<int:pk>/', views.edit_folder),
     path('workout/folder/<int:fk>/', views.user_workouts),
     path('workout/edit/<int:pk>/', views.edit_workout),

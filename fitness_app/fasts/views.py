@@ -12,17 +12,14 @@ from django.contrib.auth.models import User
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def fasts(request):
 
-    print(
-        'User', f"{request.user.id}{request.user.email}{request.user.username}"
-    )
-
+ 
     if request.method == 'POST':
         serializer = FastsSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(user=request.user)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
@@ -33,12 +30,9 @@ def fasts(request):
     
     
 @api_view(['PUT', 'GET', 'DELETE'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def edit_fast(request, pk):
 
-    print(
-        'User', f"{request.user.id}{request.user.email}{request.user.username}"
-    )
     if request.method == 'POST':
         fast = Fasts.objects.get(id = pk )
         serializer = FastsSerializer(fast, data=request.data)
