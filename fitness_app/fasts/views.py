@@ -11,23 +11,24 @@ from .serializers import FastsSerializer
 from django.contrib.auth.models import User
 
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @permission_classes([AllowAny])
 def fasts(request):
+    serializer = FastsSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+   
+    
+    
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_all_fasts(request, pk):
+    fast = Fasts.objects.filter(user = pk )
+    serializer = FastsSerializer(fast, many=True)
+    return Response(serializer.data)
 
- 
-    if request.method == 'POST':
-        serializer = FastsSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
-    elif request.method == 'GET':
-        fast = Fasts.objects.filter(user_id=request.user.id)
-        serializer = FastsSerializer(fast, many=True)
-        return Response(serializer.data)
-    
-    
     
 @api_view(['PUT', 'GET', 'DELETE'])
 @permission_classes([AllowAny])

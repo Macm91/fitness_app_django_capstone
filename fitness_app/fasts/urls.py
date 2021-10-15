@@ -8,7 +8,8 @@ from . import views
 urlpatterns = [
 
     path('', views.fasts),
-    path('<int:pk>/', views.edit_fast)
+    path('<int:pk>/', views.edit_fast),
+    path('all/<int:pk>', views.get_all_fasts),
    
 
 ]
