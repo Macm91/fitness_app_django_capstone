@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.base import Model
-from django.db.models.deletion import CASCADE
+from django.db.models.deletion import CASCADE, PROTECT
 from django.db.models.expressions import F
 
 
@@ -13,7 +13,7 @@ class WorkoutFolder(models.Model):
 
 
 class Exercise (models.Model):
-    name = models.CharField(max_length=50, null=False, blank=False)
+    name = models.CharField(max_length=50, null=False, blank=False, unique=True)
     body_part = models.CharField(max_length=50, null=False, blank=False)
     equipment = models.CharField(max_length=50, null=False, blank=False)
    
@@ -24,9 +24,9 @@ class Workout(models.Model):
     notes = models.CharField(max_length=100, null=False, blank=True)
 
 class WorkoutExercises(models.Model):
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, null=False, default=1)
+    exercise = models.ForeignKey(Exercise, to_field="name", db_column="name", on_delete=PROTECT)
     workout =models.ForeignKey(Workout, on_delete=models.CASCADE, null=False, default=1)
-
+    weight = models.IntegerField()
     sets = models.IntegerField()
     reps = models.IntegerField()
     notes = models.CharField(max_length=100, null=False, blank=True) 
