@@ -5,14 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from .models import Workout
-from .models import WorkoutExercises
-from .models import WorkoutFolder
-from .models import Exercise
-from .serializers import WorkoutExercisesSerializer 
-from .serializers import ExerciseSerializer
-from .serializers import WorkoutSerializer
-from .serializers import WorkoutFolderSerializer
+from .models import Workout, WorkoutHistory, WorkoutExercises,WorkoutFolder, Exercise
+from .serializers import WorkoutExercisesSerializer, ExerciseSerializer, WorkoutHistorySerializer, WorkoutSerializer, WorkoutFolderSerializer, WorkoutHistory
 from django.contrib.auth.models import User
 from django.shortcuts import render 
 
@@ -229,3 +223,27 @@ def edit_workout_exercise(request, pk):
         wf = WorkoutExercises.objects.get(id = pk )
         wf.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+# Workout History Methods 
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_user_workout_history(request, fk):
+        w_e = WorkoutHistory.objects.filter(user = fk)
+        serializer = WorkoutHistorySerializer(w_e, many=True)
+        return Response(serializer.data)
+
+
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def add_workout_history(request):
+    serializer = WorkoutHistorySerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+

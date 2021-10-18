@@ -29,21 +29,21 @@ def add_measurement(request):
 
 
 
-# @api_view(['PUT', 'GET'])
-# @permission_classes([AllowAny])
-# def edit_exercise(request, pk):
+@api_view(['PUT', 'GET'])
+@permission_classes([AllowAny])
+def edit_measurements(request, fk):
 
-#     if request.method == 'PUT':
-#         exercise = Measurements.objects.get(id = pk )
-#         serializer = MeasurementsSerializer(exercise, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_200_OK)
-#         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
-#     elif request.method == 'GET':
-#         fast = Measurements.objects.get(id = pk )
-#         serializer = MeasurementsSerializer(fast, many=False)
-#         return Response(serializer.data)
+    if request.method == 'PUT':
+        exercise = Measurements.objects.get(user = fk )
+        serializer = MeasurementsSerializer(exercise, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'GET':
+        fast = Measurements.objects.filter(id = fk )
+        serializer = MeasurementsSerializer(fast, many=True)
+        return Response(serializer.data)
 
     
 

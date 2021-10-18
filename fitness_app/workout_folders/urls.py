@@ -19,5 +19,7 @@ urlpatterns = [
     path('workoutexercises/<int:fk>/', views.workout_exercises),
     path('workout/add/exercise/', views.add_workout_exercises),
     path('workout/edit/exercise/<int:pk>/', views.edit_workout_exercise),
+    path('workout/history/', views.add_workout_history),
+    path('workout/history/<int:fk>/', views.get_user_workout_history)
 
 ]

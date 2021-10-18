@@ -37,4 +37,4 @@ class WorkoutFolderSerializer(serializers.ModelSerializer):
 class WorkoutHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkoutHistory
-        fields = ['id', 'workout', 'date']
+        fields = ['id', 'user', 'workout', 'date']
