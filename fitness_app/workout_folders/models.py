@@ -35,4 +35,5 @@ class WorkoutExercises(models.Model):
 class WorkoutHistory(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     workout = models.ForeignKey(Workout, on_delete=models.PROTECT)
+    workout_name=models.CharField(max_length=30, null=True)
     date = models.DateField(auto_now=True)

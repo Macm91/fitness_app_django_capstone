@@ -5,7 +5,7 @@ from django.db.models.fields import CharField, DateTimeField, TimeField
 class Fasts(models.Model):
     user = models.IntegerField()
     start = models.DateTimeField()
-    end = models.DateTimeField(auto_now=True)
+    end = models.DateTimeField()
     total_duration = models.IntegerField()
     completed = models.BooleanField(default=False)
     

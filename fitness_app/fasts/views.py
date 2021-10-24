@@ -34,7 +34,7 @@ def get_all_fasts(request, pk):
 @permission_classes([AllowAny])
 def edit_fast(request, pk):
 
-    if request.method == 'POST':
+    if request.method == 'PUT':
         fast = Fasts.objects.get(id = pk )
         serializer = FastsSerializer(fast, data=request.data)
         if serializer.is_valid():
