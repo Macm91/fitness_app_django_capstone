@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'fasts.apps.FastsConfig',
     'measurements.apps.MeasurementsConfig',
     'corsheaders',
-    
 ]
 
 MIDDLEWARE = [
@@ -137,6 +136,6 @@ REST_FRAMEWORK = {
 }
 
 try: 
-    from fitness_app.local_settings import*
+    from fitness_app.local_settings import *
 except ImportError:
     pass
